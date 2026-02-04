@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>New Contact Form Submission - {{ companyName }}</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      line-height: 1.6; 
+      color: #333; 
+      margin: 0;
+      padding: 0;
+    }
+    .container { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      padding: 20px; 
+    }
+    .header { 
+      background-color: #f5f5f5; 
+      padding: 20px; 
+      text-align: center; 
+      border-bottom: 3px solid #2c88d9;
+    }
+    .content { 
+      padding: 30px 20px; 
+      background-color: #ffffff;
+    }
+    .contact-info {
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .contact-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .contact-item {
+      background-color: #ffffff;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #2c88d9;
+    }
+    .contact-item strong {
+      color: #2c88d9;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .message-section {
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .message-text {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      border-left: 4px solid #28a745;
+      font-style: italic;
+      white-space: pre-wrap;
+    }
+    .footer { 
+      background-color: #f5f5f5; 
+      padding: 20px; 
+      text-align: center; 
+      font-size: 12px; 
+      color: #666;
+      border-top: 1px solid #e0e0e0;
+    }
+    .timestamp {
+      color: #666;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .priority {
+      background-color: #fff3cd;
+      border: 1px solid #ffeaa7;
+      color: #856404;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📧 New Contact Form Submission</h1>
+      <p>{{ companyName }}</p>
+    </div>
+    
+    <div class="content">
+      <div class="priority">
+        <strong>⚠️ Action Required:</strong> A customer has submitted a contact form and is waiting for your response.
+      </div>
+      
+      <div class="timestamp">
+        <strong>Received:</strong> {{ timestamp }}
+      </div>
+      
+      <div class="contact-info">
+        <h2>👤 Contact Information</h2>
+        <div class="contact-details">
+          <div class="contact-item">
+            <strong>Full Name</strong>
+            {{ fullName }}
+          </div>
+          <div class="contact-item">
+            <strong>Email Address</strong>
+            <a href="mailto:{{ email }}">{{ email }}</a>
+          </div>
+          <div class="contact-item">
+            <strong>Mobile Number</strong>
+            <a href="tel:{{ mobileNumber }}">{{ mobileNumber }}</a>
+          </div>
+          <div class="contact-item">
+            <strong>First Name</strong>
+            {{ firstName }}
+          </div>
+        </div>
+      </div>
+      
+      <div class="message-section">
+        <h2>💬 Customer Message</h2>
+        <div class="message-text">{{ message }}</div>
+      </div>
+      
+    </div>
+    
+    <div class="footer">
+      <p>This email was automatically generated from the {{ companyName }} contact form.</p>
+      <p>&copy; {{ currentYear }} {{ companyName }}. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

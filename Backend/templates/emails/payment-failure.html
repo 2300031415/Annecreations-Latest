@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Payment Failed - Order #{{ orderNumber }}</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      line-height: 1.6; 
+      color: #333; 
+      margin: 0;
+      padding: 0;
+    }
+    .container { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      padding: 20px; 
+    }
+    .header { 
+      background-color: #f8f9fa; 
+      padding: 20px; 
+      text-align: center; 
+      border-bottom: 3px solid #dc3545;
+    }
+    .content { 
+      padding: 30px 20px; 
+      background-color: #ffffff;
+    }
+    .alert {
+      background-color: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    .order-details {
+      margin: 20px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 15px;
+      background-color: #f9f9f9;
+    }
+    .button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+    .footer { 
+      text-align: center; 
+      font-size: 12px; 
+      color: #777; 
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    .total-row {
+      font-weight: bold;
+      background-color: #f2f2f2;
+    }
+    .error-details {
+      background-color: #fff3cd;
+      border: 1px solid #ffeaa7;
+      color: #856404;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>{{ companyName }}</h2>
+    </div>
+    <div class="content">
+      <h3>{{ subject }}</h3>
+      <p>Hello {{ customerName }},</p>
+      
+      <div class="alert">
+        <strong>⚠️ Payment Failed</strong><br>
+        We were unable to process your payment for Order #{{ orderNumber }}.
+      </div>
+      
+      <p>Unfortunately, your payment could not be processed at this time. This could be due to various reasons such as insufficient funds, incorrect card details, or bank restrictions.</p>
+      
+      <div class="order-details">
+        <h4>Order Information:</h4>
+        <p><strong>Order Number:</strong> #{{ orderNumber }}</p>
+        <p><strong>Order Date:</strong> {{ orderDate }}</p>
+        <p><strong>Payment Method:</strong> {{ paymentMethod }}</p>
+        <p><strong>Order Total:</strong> ₹{{ orderTotal }}</p>
+        {{#if errorReason}}
+        <p><strong>Error:</strong> {{ errorReason }}</p>
+        {{/if}}
+      </div>
+      
+      <h4>Order Summary:</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{ orderItems }}
+          <tr class="total-row">
+            <td colspan="2" style="text-align: right;"><strong>Total:</strong></td>
+            <td>₹{{ orderTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div class="error-details">
+        <strong>What you can do:</strong>
+        <ul>
+          <li>Check your payment method details and try again</li>
+          <li>Contact your bank if the issue persists</li>
+          <li>Try using a different payment method</li>
+          <li>Contact our customer support for assistance</li>
+        </ul>
+      </div>
+      
+      <p>If you continue to experience issues, please contact our customer service team and we'll be happy to help you complete your order.</p>
+      
+      <p>Best regards,<br>The {{ companyName }} Team</p>
+    </div>
+    <div class="footer">
+      <p>© {{ currentYear }} {{ companyName }}. All rights reserved.</p>
+      <p>If you have any questions, please contact our support team.</p>
+    </div>
+  </div>
+</body>
+</html>
