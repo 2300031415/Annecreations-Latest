@@ -18,6 +18,14 @@ dist/
 .env.test.local
 .env.production.local
 
+# Backups
+mongo_backup/
+Backend/mongo_backup/
+*.dump
+*.bson
+*.gzip
+*.zip
+
 # Logs
 npm-debug.log*
 yarn-debug.log*
