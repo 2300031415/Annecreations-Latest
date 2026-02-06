@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+/* Import fonts (Poppins, Inter, Unna) */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;500;600;700&family=Unna&display=swap'); */
+
+/* Default font for all elements */
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+:root {
+  --secondary: #311807;
+  --primary: #FFB729;
+  --background: #ffffff;
+  --text: #000000;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+  --muted-text: #6b7280;
+  /* gray-500 */
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Poppins', sans-serif !important;
+  color: var(--secondary);
+}
+
+/* Carousel customization */
+.carousel .control-dots {
+  bottom: 10px;
+}
+
+.carousel .control-dots .dot {
+  background: #aaa;
+  box-shadow: none;
+  margin: 0 8px;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.carousel .control-dots .dot.selected {
+  background: #311807;
+  opacity: 1;
+  padding: 0 20px !important;
+  border-radius: 8px;
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, #FFB729 10%, #996E19 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent;
+  /* for Firefox */
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.MuiTypography-root {
+  text-decoration: none !important;
+  --Link-underlineColor: rgba(25, 118, 210, 0);
+}
+
+.css-1hor9j2 {
+  display: none;
+}
+
+@media (max-width: 786px) {
+  .css-1hor9j2 {
+    display: flex;
+  }
+
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+/* Hide default reveal/clear in WebKit (Chrome, Safari, etc.) */
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none;
+}
+
+/* Header Responsive Breakpoints - 1120px threshold */
+@media (min-width: 1120px) {
+
+  /* Desktop view - show full navigation and profile menu */
+  .header-desktop-nav {
+    display: flex !important;
+  }
+
+  .header-mobile-hamburger {
+    display: none !important;
+  }
+
+  .header-search-center {
+    display: none !important;
+  }
+
+  .header-search-right {
+    display: flex !important;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 1119px) {
+
+  /* Mobile view - show hamburger menu and centered search */
+  .header-desktop-nav {
+    display: none !important;
+  }
+
+  .header-mobile-hamburger {
+    display: flex !important;
+  }
+
+  .header-search-center {
+    display: flex !important;
+    flex: 1;
+    justify-content: center;
+    padding: 0 1rem;
+  }
+
+  .header-search-right {
+    display: none !important;
+  }
+}
+
+/* Cart Icon Alignment Fix */
+.header-cart-icon {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 48px;
+}
+
+/* Hide cart icon on lg screens (1120px+) to prevent duplicates */
+@media (min-width: 1120px) {
+  .header-cart-icon {
+    display: none !important;
+  }
+}
+
+/* ProfileMenu Icons Alignment */
+.header-search-right .MuiIconButton-root {
+  margin: 0 !important;
+  padding: 8px !important;
+  min-width: 48px !important;
+  height: 48px !important;
+}
+
+/* Ensure proper spacing in header */
+.MuiToolbar-root {
+  min-height: 64px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+}
+
+/* Remove gaps between icons in ProfileMenu */
+.header-search-right {
+  gap: 0 !important;
+}
+
+/* Developed by w3technologies */
+
+/* Developed by w3technologies */
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}

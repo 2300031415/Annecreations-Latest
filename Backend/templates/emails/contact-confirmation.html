@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Thank you for contacting us - {{ companyName }}</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      line-height: 1.6; 
+      color: #333; 
+      margin: 0;
+      padding: 0;
+    }
+    .container { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      padding: 20px; 
+    }
+    .header { 
+      background-color: #f5f5f5; 
+      padding: 20px; 
+      text-align: center; 
+      border-bottom: 3px solid #2c88d9;
+    }
+    .content { 
+      padding: 30px 20px; 
+      background-color: #ffffff;
+    }
+    .success-message {
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .confirmation-details {
+      background-color: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .detail-item:last-child {
+      border-bottom: none;
+    }
+    .detail-label {
+      font-weight: bold;
+      color: #2c88d9;
+    }
+    .next-steps {
+      background-color: #e3f2fd;
+      border: 1px solid #bbdefb;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .next-steps h3 {
+      color: #1976d2;
+      margin-top: 0;
+    }
+    .next-steps ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .next-steps li {
+      margin: 8px 0;
+    }
+    .contact-info {
+      background-color: #fff3e0;
+      border: 1px solid #ffcc02;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .contact-info h3 {
+      color: #f57c00;
+      margin-top: 0;
+    }
+    .footer { 
+      background-color: #f5f5f5; 
+      padding: 20px; 
+      text-align: center; 
+      font-size: 12px; 
+      color: #666;
+      border-top: 1px solid #e0e0e0;
+    }
+    .thank-you {
+      text-align: center;
+      font-size: 24px;
+      color: #2c88d9;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Thank You for Contacting Us!</h1>
+      <p>{{ companyName }}</p>
+    </div>
+    
+    <div class="content">
+      <div class="thank-you">
+        🙏 Thank You, {{ firstName }}!
+      </div>
+      
+      <div class="success-message">
+        <h2>✅ Message Received Successfully</h2>
+        <p>We have received your message and will get back to you within 24 hours.</p>
+      </div>
+      
+      <div class="confirmation-details">
+        <h3>📋 Message Confirmation</h3>
+        <div class="detail-item">
+          <span class="detail-label">Name:</span>
+          <span>{{ fullName }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Email:</span>
+          <span>{{ email }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Mobile:</span>
+          <span>{{ mobileNumber }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Message Length:</span>
+          <span>{{ message.length }} characters</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Submitted:</span>
+          <span>{{ timestamp }}</span>
+        </div>
+      </div>
+      
+      <div class="next-steps">
+        <h3>🔄 What Happens Next?</h3>
+        <ul>
+          <li><strong>Immediate:</strong> Your message has been forwarded to our team</li>
+          <li><strong>Within 24 hours:</strong> A team member will review and respond to your inquiry</li>
+          <li><strong>If urgent:</strong> We may call you at {{ mobileNumber }} for immediate assistance</li>
+          <li><strong>Follow-up:</strong> We'll keep you updated on the progress of your inquiry</li>
+        </ul>
+      </div>
+      
+      <div class="contact-info">
+        <h3>📞 Need Immediate Assistance?</h3>
+        <p>If your inquiry is urgent or you need immediate assistance, please don't hesitate to:</p>
+        <ul>
+          <li>Call us directly at your registered mobile number</li>
+          <li>Reply to this email with "URGENT" in the subject line</li>
+          <li>Contact us through our other communication channels</li>
+        </ul>
+      </div>
+      
+      <div style="text-align: center; margin: 30px 0;">
+        <p style="font-size: 18px; color: #2c88d9;">
+          We appreciate your interest in {{ companyName }} and look forward to helping you!
+        </p>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>This is an automated confirmation email. Please do not reply to this message.</p>
+      <p>&copy; {{ currentYear }} {{ companyName }}. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

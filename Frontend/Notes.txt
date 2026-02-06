@@ -1,0 +1,88 @@
+Features to implement
+=====================
+- Add proxy to hide backend URL.
+- Implement Protected Routing.
+- Help Page - Get Requirement.
+- Product Pgae - Rename Related Products to Similar Designs.
+- Shopping Cart Page - border bottom is missing. - done
+- (Create New Page) Chekout Page, Password Reset & Change Password.
+- Verify Download after purchase.
+- Verify Authentication, (login, logout, silent login)
+- After register take user to login screen. - done
+- Option to close the notification. - done
+- Verify Forgot password functionality 
+- Add logout confirmation
+
+------------------
+- related products - api depencency
+- password validation
+
+
+-------------------------------------------------------------------------------
+Login
+======================
+- require new route to silent login using refresh token.
+- require new route to logout session to clear the jwt token.
+
+
+Header 
+======================
+- get all catagories - /api/categories?include_inactive=false
+- search ( currently using) - /api/search?query=hb
+	- getting error
+- replacing search with - /api/search/suggestions?q=hb&limit=100
+	- require pagination fo initite scroll
+	
+	
+Homepage 
+======================
+- get All Categories - /api/categories/tree?include_counts=true&max_depth=1
+- get top Arrivals - /api/products/with-prices?sort=date_added
+
+
+Category Page
+======================
+- get all catagories - /api/categories/tree?include_counts=true&max_depth=1
+
+
+Category Products Page
+======================
+- get all catagories - /api/categories?include_inactive=false
+- get category products - /api/categories/:categoryId?page=1&sort=price&order=asc
+	- price logic is not added. (price is 0 for all products)
+	
+
+Single Product Page
+======================
+- get single product - /api/products/:productId
+	- related products are coming as empty.
+	- show whether the customer purchased that particular design(true/false).
+	
+- add to wishlist - /api/wishlist/add
+- add to cart - /api/card/add
+	
+	
+Profile Page
+=====================
+- get customer profile - /api/customers/profile
+- update customer profile - /api/customers/profile
+	- PUT response is different from GET call
+
+
+Contact us Page
+======================
+- require new route to submit the form details.
+
+
+Wishlist Page
+==========================
+- get all catagories - /api/categories?include_inactive=false
+- get wishlist products - /api/wishlist
+- remove wishlist item - /api/wishlist/remove/{proudct_id}
+
+
+Checkout Page
+===========================
+- Checkout complete - /api/checkout/complete
+	- need to verify payment in backend.
+	
