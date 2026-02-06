@@ -1,0 +1,15 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.embroidery.annecreations",
+      "sha256_cert_fingerprints": [
+        "78:15:6A:FE:0F:D8:CB:54:4B:FD:20:86:56:7F:A0:1D:86:5F:A6:68:A0:71:28:D5:C0:C9:16:DC:FC:FB:32:F2",
+        "DC:C6:12:C2:AA:6F:E7:D6:F0:8C:70:4B:8A:9E:AF:5D:06:88:5C:60:B3:73:6B:12:5C:02:C9:45:FB:F2:4F:CB"
+      ]
+    }
+  }
+]

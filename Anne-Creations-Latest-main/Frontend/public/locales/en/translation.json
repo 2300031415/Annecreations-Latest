@@ -1,0 +1,60 @@
+{
+  "tabs": {
+    "all": "All",
+    "todays_deals": "Today's Deals",
+    "new_releases": "New Releases",
+    "best_selling": "Best Sellers",
+    "most_bought": "Most Bought",
+    "on_sale": "On Sale",
+    "free_designs": "Free Designs"
+  },
+  "header": {
+    "language": "Language"
+  },
+  "filters": {
+    "title": "Filters",
+    "price_range": "Price Range",
+    "categories": "Categories",
+    "sort_by": "Sort By"
+  },
+  "buttons": {
+    "add_to_cart": "Add to Cart",
+    "quick_view": "Quick View",
+    "download_pdf": "Download Catalog"
+  },
+  "nav": {
+    "home": "Home",
+    "our_designs": "Our Designs",
+    "categories": "Categories",
+    "custom_design": "Custom Design",
+    "about_us": "About Us",
+    "contact_us": "Contact Us",
+    "help": "Help"
+  },
+  "home": {
+    "new_arrivals": "New Arrivals",
+    "shop_by_category": "Our Designs - Shop By Categories",
+    "recently_viewed": "Recently Viewed",
+    "designs": "designs",
+    "announcement": "✨ Premium Computer Embroidery Designs • 🚚 Pan-India Shipping Available • 📞 Contact Us for Custom Orders • 🎨 New Designs Added Weekly"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
+  },
+  "common": {
+    "loading": "Loading...",
+    "loading_banners": "Loading banners...",
+    "show_more": "Show More",
+    "more": "more"
+  },
+  "custom_design": {
+    "title": "Custom Design Services",
+    "subtitle": "Bring your creative ideas to life. Request a new custom design or track the status of your existing requests.",
+    "new_request": "New Design Request",
+    "new_request_desc": "Submit a new idea, upload reference images, and get a quote for your custom embroidery design.",
+    "view_requests": "View My Requests",
+    "view_requests_desc": "Check the status of your submitted requests, view quotes, and download completed designs."
+  }
+}

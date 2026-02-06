@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCart Product API - Complete Routes Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+    <style>
+        .api-endpoint {
+            border-left: 4px solid #007bff;
+            padding-left: 15px;
+            margin-bottom: 25px;
+        }
+        .method-get { border-left-color: #28a745; }
+        .method-post { border-left-color: #007bff; }
+        .method-put { border-left-color: #ffc107; }
+        .method-delete { border-left-color: #dc3545; }
+        .method-patch { border-left-color: #6f42c1; }
+        
+        .method-badge {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .method-get .method-badge { background: #28a745; color: white; }
+        .method-post .method-badge { background: #007bff; color: white; }
+        .method-put .method-badge { background: #ffc107; color: #000; }
+        .method-delete .method-badge { background: #dc3545; color: white; }
+        .method-patch .method-badge { background: #6f42c1; color: white; }
+        
+        .curl-command {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        
+        .auth-required {
+            background: #fff3cd;
+            border: 1px solid #ffecb5;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+        
+        .public-endpoint {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+        
+        .sidebar {
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 20px 15px;
+        }
+        
+        .sidebar a {
+            display: block;
+            padding: 8px 0;
+            color: #495057;
+            text-decoration: none;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .sidebar a:hover {
+            color: #007bff;
+            background: #e9ecef;
+            padding-left: 10px;
+        }
+        
+        .content {
+            padding: 20px;
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <h5 class="text-primary mb-3">📋 Navigation</h5>
+                <a href="#overview">Overview</a>
+                <a href="#authentication">Authentication</a>
+                <a href="#public-routes">Public Routes</a>
+                <a href="#customer-routes">Customer Routes</a>
+                <a href="#admin-routes">Admin Routes</a>
+                <a href="#file-operations">File Operations</a>
+                <a href="#bulk-operations">Bulk Operations</a>
+                <a href="#search-export">Search & Export</a>
+                <a href="#error-handling">Error Handling</a>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-9 content">
+                <div class="section-header">
+                    <h1>🛍️ OpenCart Product API Routes</h1>
+                    <p class="mb-0">Complete documentation for all product-related API endpoints with cURL examples</p>
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="toc" id="overview">
+                    <h3>📖 Table of Contents</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul>
+                                <li><a href="#authentication">Authentication</a></li>
+                                <li><a href="#public-routes">Public Routes (8 endpoints)</a></li>
+                                <li><a href="#customer-routes">Customer Routes (1 endpoint)</a></li>
+                                <li><a href="#admin-routes">Admin Routes (23 endpoints)</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul>
+                                <li><a href="#file-operations">File Operations (4 endpoints)</a></li>
+                                <li><a href="#bulk-operations">Bulk Operations (3 endpoints)</a></li>
+                                <li><a href="#search-export">Search & Export (3 endpoints)</a></li>
+                                <li><a href="#error-handling">Error Handling</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <strong>📊 Total Endpoints:</strong> 42 product-related API endpoints
+                        <br><strong>🔗 Base URL:</strong> <code>http://localhost:5000/api/products</code>
+                    </div>
+                </div>
+
+                <!-- Authentication Section -->
+                <section id="authentication" class="mb-5">
+                    <h2>🔐 Authentication</h2>
+                    <p>Most product operations require authentication. Here's how to authenticate:</p>
+                    
+                    <h4>Customer Authentication</h4>
+                    <div class="curl-command">
+# Login as customer to get access token
+curl -X POST http://localhost:5000/api/customers/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "customer@example.com",
+    "password": "password123"
+  }'
+
+# Response will include accessToken
+# Use it in subsequent requests:
+# -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+                    </div>
+
+                    <h4>Admin Authentication</h4>
+                    <div class="curl-command">
+# Login as admin to get access token
+curl -X POST http://localhost:5000/api/admin/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "admin",
+    "password": "admin123"
+  }'
+                    </div>
+                </section>
+
+                <!-- Public Routes Section -->
+                <section id="public-routes" class="mb-5">
+                    <h2>🌐 Public Routes (No Authentication Required)</h2>
+                    
+                    <!-- Get All Products -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Get All Products</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products</code></p>
+                        <p>Retrieves a paginated list of products with filtering and sorting options.</p>
+                        
+                        <div class="public-endpoint">
+                            ✅ <strong>Public Access</strong> - No authentication required
+                        </div>
+                        
+                        <strong>Query Parameters:</strong>
+                        <ul>
+                            <li><code>page</code> - Page number (default: 1)</li>
+                            <li><code>limit</code> - Items per page (default: 10, max: 100)</li>
+                            <li><code>category</code> - Filter by category ID</li>
+                            <li><code>manufacturer</code> - Filter by manufacturer ID</li>
+                            <li><code>search</code> - Search in name, model, description</li>
+                            <li><code>price_min</code> - Minimum price filter</li>
+                            <li><code>price_max</code> - Maximum price filter</li>
+                            <li><code>sort</code> - Sort by: name_asc, name_desc, price_asc, price_desc, date_added</li>
+                            <li><code>status</code> - Filter by status (true/false)</li>
+                        </ul>
+                        
+                        <strong>Examples:</strong>
+                        <div class="curl-command">
+# Basic request
+curl -X GET "http://localhost:5000/api/products"
+
+# With pagination
+curl -X GET "http://localhost:5000/api/products?page=2&limit=20"
+
+# Search products
+curl -X GET "http://localhost:5000/api/products?search=laptop&sort=price_asc"
+
+# Filter by category and price range
+curl -X GET "http://localhost:5000/api/products?category=5&price_min=100&price_max=500"
+
+# Filter by manufacturer
+curl -X GET "http://localhost:5000/api/products?manufacturer=3&sort=name_asc"
+                        </div>
+                    </div>
+
+                    <!-- Get Product by ID -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Get Product by ID</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}</code></p>
+                        <p>Retrieves detailed information about a specific product. Increments view count.</p>
+                        
+                        <div class="public-endpoint">
+                            ✅ <strong>Public Access</strong> - Authentication optional (enhanced data for authenticated users)
+                        </div>
+                        
+                        <div class="curl-command">
+# Get product details
+curl -X GET "http://localhost:5000/api/products/123"
+
+# With authentication (shows file upload details)
+curl -X GET "http://localhost:5000/api/products/123" \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+                        </div>
+                    </div>
+
+                    <!-- Get Product Images -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Get Product Images</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/images</code></p>
+                        <p>Retrieves all images associated with a product (main + additional images).</p>
+                        
+                        <div class="public-endpoint">
+                            ✅ <strong>Public Access</strong> - No authentication required
+                        </div>
+                        
+                        <div class="curl-command">
+# Get all product images
+curl -X GET "http://localhost:5000/api/products/123/images"
+                        </div>
+                    </div>
+
+                    <!-- Image Serving -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Serve Product Images</h4>
+                        <p><strong>Endpoint:</strong> <code>/image/{filepath}</code></p>
+                        <p>Serves product images from the catalog directory with caching headers.</p>
+                        
+                        <div class="public-endpoint">
+                            ✅ <strong>Public Access</strong> - Rate limited to 100 requests per 15 minutes
+                        </div>
+                        
+                        <div class="curl-command">
+# Get product image
+curl -X GET "http://localhost:5000/image/catalog/product/laptop-123.jpg"
+
+# Get category image
+curl -X GET "http://localhost:5000/image/catalog/category/electronics.png"
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Customer Routes Section -->
+                <section id="customer-routes" class="mb-5">
+                    <h2>👤 Customer Routes (Authentication Required)</h2>
+                    
+                    <!-- Generate Download Link -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Generate Download Link</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{productId}/download/{optionValueId}/link</code></p>
+                        <p>Generates a temporary download link for purchased product files (30-minute expiry).</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Customer Authentication Required</strong> - Must have purchased the product
+                        </div>
+                        
+                        <div class="curl-command">
+# Generate download link for purchased file
+curl -X GET "http://localhost:5000/api/products/123/download/456/link" \
+  -H "Authorization: Bearer YOUR_CUSTOMER_TOKEN"
+                        </div>
+                        
+                        <strong>Response:</strong>
+                        <div class="curl-command">
+{
+  "download_url": "/api/products/download/abc123token",
+  "expires_in": 1800,
+  "file_name": "digital-product.zip"
+}
+                        </div>
+                    </div>
+
+                    <!-- Download File -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Download File</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/download/{token}</code></p>
+                        <p>Downloads a file using a temporary token (generated from the link endpoint).</p>
+                        
+                        <div class="public-endpoint">
+                            ✅ <strong>Token-Based Access</strong> - Uses temporary token for security
+                        </div>
+                        
+                        <div class="curl-command">
+# Download file with temporary token
+curl -X GET "http://localhost:5000/api/products/download/abc123token" \
+  --output downloaded-file.zip
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Admin Routes Section -->
+                <section id="admin-routes" class="mb-5">
+                    <h2>⚙️ Admin Routes (Admin Authentication Required)</h2>
+                    
+                    <!-- Create Product -->
+                    <div class="api-endpoint method-post">
+                        <h4><span class="method-badge">POST</span>Create Product</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products</code></p>
+                        <p>Creates a new product with full details including descriptions, options, and categories.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Create new product
+curl -X POST "http://localhost:5000/api/products" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "LAPTOP-2024",
+    "price": 999.99,
+    "quantity": 50,
+    "status": true,
+    "descriptions": [
+      {
+        "language_id": 1,
+        "name": "Gaming Laptop 2024",
+        "description": "High-performance gaming laptop with RTX graphics",
+        "meta_title": "Gaming Laptop",
+        "meta_description": "Best gaming laptop for 2024"
+      }
+    ],
+    "categories": [1, 5, 8],
+    "manufacturer_id": 3,
+    "weight": 2.5,
+    "dimensions": {
+      "length": 35,
+      "width": 25,
+      "height": 2
+    }
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Update Product -->
+                    <div class="api-endpoint method-put">
+                        <h4><span class="method-badge">PUT</span>Update Product</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}</code></p>
+                        <p>Updates an existing product. Only provided fields will be updated.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Update product price and quantity
+curl -X PUT "http://localhost:5000/api/products/123" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "price": 899.99,
+    "quantity": 25,
+    "status": true
+  }'
+
+# Update product description
+curl -X PUT "http://localhost:5000/api/products/123" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "descriptions": [
+      {
+        "language_id": 1,
+        "name": "Updated Gaming Laptop 2024",
+        "description": "Updated description with new features"
+      }
+    ]
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Delete Product -->
+                    <div class="api-endpoint method-delete">
+                        <h4><span class="method-badge">DELETE</span>Delete Product</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}</code></p>
+                        <p>Permanently deletes a product. This action cannot be undone.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Delete product
+curl -X DELETE "http://localhost:5000/api/products/123" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                    </div>
+
+                    <!-- Product Images Management -->
+                    <h3>🖼️ Image Management</h3>
+                    
+                    <!-- Upload Product Image -->
+                    <div class="api-endpoint method-post">
+                        <h4><span class="method-badge">POST</span>Upload Product Image</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/images</code></p>
+                        <p>Uploads a new image for a product. Supports JPEG, PNG, GIF, WebP (max 5MB).</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Upload product image
+curl -X POST "http://localhost:5000/api/products/123/images" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -F "image=@/path/to/product-image.jpg" \
+  -F "sort_order=1"
+                        </div>
+                    </div>
+
+                    <!-- Update Product Image -->
+                    <div class="api-endpoint method-put">
+                        <h4><span class="method-badge">PUT</span>Update Product Image</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/images/{imageId}</code></p>
+                        <p>Updates image properties like sort order.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Update image sort order
+curl -X PUT "http://localhost:5000/api/products/123/images/456" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "sort_order": 2
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Delete Product Image -->
+                    <div class="api-endpoint method-delete">
+                        <h4><span class="method-badge">DELETE</span>Delete Product Image</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/images/{imageId}</code></p>
+                        <p>Removes an image from a product.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Delete product image
+curl -X DELETE "http://localhost:5000/api/products/123/images/456" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                    </div>
+
+                    <!-- Product Options Management -->
+                    <h3>⚙️ Options Management</h3>
+                    
+                    <!-- Add Product Option -->
+                    <div class="api-endpoint method-post">
+                        <h4><span class="method-badge">POST</span>Add Product Option</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/options</code></p>
+                        <p>Adds a new option to a product (size, color, etc.).</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Add color option
+curl -X POST "http://localhost:5000/api/products/123/options" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "option_id": 1,
+    "name": "Color",
+    "type": "select",
+    "required": true,
+    "sort_order": 1
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Update Product Option -->
+                    <div class="api-endpoint method-put">
+                        <h4><span class="method-badge">PUT</span>Update Product Option</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/options/{optionId}</code></p>
+                        <p>Updates an existing product option.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Update option
+curl -X PUT "http://localhost:5000/api/products/123/options/1" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "required": false,
+    "sort_order": 2
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Delete Product Option -->
+                    <div class="api-endpoint method-delete">
+                        <h4><span class="method-badge">DELETE</span>Delete Product Option</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/options/{optionId}</code></p>
+                        <p>Removes an option from a product.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Delete option
+curl -X DELETE "http://localhost:5000/api/products/123/options/1" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                    </div>
+
+                    <!-- Option Values Management -->
+                    <h3>🎯 Option Values Management</h3>
+                    
+                    <!-- Add Option Value -->
+                    <div class="api-endpoint method-post">
+                        <h4><span class="method-badge">POST</span>Add Option Value with File Upload</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/options/{optionId}/values</code></p>
+                        <p>Adds a value to a product option. Supports file uploads for digital products.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Add option value with file
+curl -X POST "http://localhost:5000/api/products/123/options/1/values" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -F "option_value_id=5" \
+  -F "name=Red" \
+  -F "price=10.00" \
+  -F "price_prefix=+" \
+  -F "quantity=100" \
+  -F "uploaded_file=@/path/to/digital-file.zip"
+
+# Add simple option value (no file)
+curl -X POST "http://localhost:5000/api/products/123/options/1/values" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "option_value_id": 6,
+    "name": "Blue",
+    "price": 5.00,
+    "price_prefix": "+",
+    "quantity": 150
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Update Option Value -->
+                    <div class="api-endpoint method-put">
+                        <h4><span class="method-badge">PUT</span>Update Option Value</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/options/{optionId}/values/{valueId}</code></p>
+                        <p>Updates an option value.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Update option value price
+curl -X PUT "http://localhost:5000/api/products/123/options/1/values/5" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "price": 15.00,
+    "quantity": 80
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Delete Option Value -->
+                    <div class="api-endpoint method-delete">
+                        <h4><span class="method-badge">DELETE</span>Delete Option Value</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/options/{optionId}/values/{valueId}</code></p>
+                        <p>Removes an option value.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Delete option value
+curl -X DELETE "http://localhost:5000/api/products/123/options/1/values/5" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                    </div>
+
+                    <!-- Product Attributes Management -->
+                    <h3>📋 Attributes Management</h3>
+                    
+                    <!-- Add Product Attribute -->
+                    <div class="api-endpoint method-post">
+                        <h4><span class="method-badge">POST</span>Add Product Attribute</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/attributes</code></p>
+                        <p>Adds an attribute to a product (specifications, features, etc.).</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Add processor attribute
+curl -X POST "http://localhost:5000/api/products/123/attributes" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "attribute_id": 1,
+    "name": "Processor",
+    "text": "Intel Core i7-12700H"
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Update Product Attribute -->
+                    <div class="api-endpoint method-put">
+                        <h4><span class="method-badge">PUT</span>Update Product Attribute</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/attributes/{attributeId}</code></p>
+                        <p>Updates an existing attribute.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Update attribute text
+curl -X PUT "http://localhost:5000/api/products/123/attributes/1" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "text": "Intel Core i7-13700H (Updated)"
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Delete Product Attribute -->
+                    <div class="api-endpoint method-delete">
+                        <h4><span class="method-badge">DELETE</span>Delete Product Attribute</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/attributes/{attributeId}</code></p>
+                        <p>Removes an attribute from a product.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Delete attribute
+curl -X DELETE "http://localhost:5000/api/products/123/attributes/1" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                    </div>
+
+                    <!-- Description Management -->
+                    <h3>📝 Description Management</h3>
+                    
+                    <!-- Update Product Description -->
+                    <div class="api-endpoint method-put">
+                        <h4><span class="method-badge">PUT</span>Update Product Description</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/descriptions/{languageId}</code></p>
+                        <p>Updates product description for a specific language.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Update English description
+curl -X PUT "http://localhost:5000/api/products/123/descriptions/1" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Updated Gaming Laptop 2024",
+    "description": "Enhanced gaming laptop with improved cooling system",
+    "meta_title": "Best Gaming Laptop 2024",
+    "meta_description": "Top-rated gaming laptop with RTX 4080",
+    "meta_keyword": "gaming, laptop, RTX, performance"
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Delete Product Description -->
+                    <div class="api-endpoint method-delete">
+                        <h4><span class="method-badge">DELETE</span>Delete Product Description</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/descriptions/{languageId}</code></p>
+                        <p>Removes description for a specific language.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Delete Spanish description
+curl -X DELETE "http://localhost:5000/api/products/123/descriptions/2" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                    </div>
+
+                    <!-- Related Products Management -->
+                    <h3>🔗 Related Products Management</h3>
+                    
+                    <!-- Add Related Product -->
+                    <div class="api-endpoint method-post">
+                        <h4><span class="method-badge">POST</span>Add Related Product</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/related</code></p>
+                        <p>Links a product as related. Creates bidirectional relationship.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Add related product
+curl -X POST "http://localhost:5000/api/products/123/related" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "related_id": 456
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Remove Related Product -->
+                    <div class="api-endpoint method-delete">
+                        <h4><span class="method-badge">DELETE</span>Remove Related Product</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/{id}/related/{relatedId}</code></p>
+                        <p>Removes the relationship between two products.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Remove related product
+curl -X DELETE "http://localhost:5000/api/products/123/related/456" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bulk Operations Section -->
+                <section id="bulk-operations" class="mb-5">
+                    <h2>📦 Bulk Operations</h2>
+                    
+                    <!-- Bulk Update Products -->
+                    <div class="api-endpoint method-patch">
+                        <h4><span class="method-badge">PATCH</span>Bulk Update Products</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/bulk</code></p>
+                        <p>Updates multiple products at once. Limited to 100 products per request.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Bulk update product status
+curl -X PATCH "http://localhost:5000/api/products/bulk" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "product_ids": [123, 124, 125, 126],
+    "updates": {
+      "status": true,
+      "manufacturer_id": 5
+    }
+  }'
+
+# Bulk price update
+curl -X PATCH "http://localhost:5000/api/products/bulk" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "product_ids": [123, 124, 125],
+    "updates": {
+      "price": 999.99,
+      "quantity": 50
+    }
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Get Product Statistics -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Get Product Statistics</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/stats/overview</code></p>
+                        <p>Returns overview statistics about products in the system.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Get product statistics
+curl -X GET "http://localhost:5000/api/products/stats/overview" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+                        </div>
+                        
+                        <strong>Response:</strong>
+                        <div class="curl-command">
+{
+  "total_products": 1245,
+  "active_products": 1100,
+  "inactive_products": 145,
+  "products_with_images": 980,
+  "products_with_files": 85,
+  "generated_at": "2024-01-15T10:30:00Z"
+}
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Search and Export Section -->
+                <section id="search-export" class="mb-5">
+                    <h2>🔍 Search & Export Operations</h2>
+                    
+                    <!-- Advanced Search -->
+                    <div class="api-endpoint method-post">
+                        <h4><span class="method-badge">POST</span>Advanced Product Search</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/search/advanced</code></p>
+                        <p>Advanced search with multiple filters and conditions.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Advanced search with multiple filters
+curl -X POST "http://localhost:5000/api/products/search/advanced" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "laptop",
+    "category_ids": [1, 5],
+    "manufacturer_ids": [3, 7],
+    "price_range": {
+      "min": 500,
+      "max": 2000
+    },
+    "stock_range": {
+      "min": 10
+    },
+    "date_range": {
+      "start": "2024-01-01",
+      "end": "2024-12-31"
+    },
+    "status": true,
+    "has_images": true,
+    "has_files": false,
+    "sort_by": "price",
+    "sort_order": "asc",
+    "page": 1,
+    "limit": 50
+  }'
+                        </div>
+                    </div>
+
+                    <!-- Export Products to CSV -->
+                    <div class="api-endpoint method-get">
+                        <h4><span class="method-badge">GET</span>Export Products to CSV</h4>
+                        <p><strong>Endpoint:</strong> <code>/api/products/export/csv</code></p>
+                        <p>Exports all products to CSV format for download.</p>
+                        
+                        <div class="auth-required">
+                            🔒 <strong>Admin Authentication Required</strong>
+                        </div>
+                        
+                        <div class="curl-command">
+# Export products to CSV
+curl -X GET "http://localhost:5000/api/products/export/csv" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  --output products.csv
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Error Handling Section -->
+                <section id="error-handling" class="mb-5">
+                    <h2>⚠️ Error Handling</h2>
+                    <p>The API returns standardized error responses:</p>
+                    
+                    <h4>Common HTTP Status Codes:</h4>
+                    <ul>
+                        <li><code>200</code> - Success</li>
+                        <li><code>201</code> - Created</li>
+                        <li><code>400</code> - Bad Request (validation errors)</li>
+                        <li><code>401</code> - Unauthorized (missing/invalid token)</li>
+                        <li><code>403</code> - Forbidden (insufficient permissions)</li>
+                        <li><code>404</code> - Not Found</li>
+                        <li><code>409</code> - Conflict (duplicate data)</li>
+                        <li><code>429</code> - Too Many Requests (rate limited)</li>
+                        <li><code>500</code> - Internal Server Error</li>
+                    </ul>
+                    
+                    <h4>Error Response Format:</h4>
+                    <div class="curl-command">
+{
+  "message": "Error description",
+  "error": "Detailed error message",
+  "status": "error",
+  "type": "validation",
+  "errors": [
+    {
+      "field": "price",
+      "message": "Price must be a positive number",
+      "value": -10
+    }
+  ]
+}
+                    </div>
+
+                    <h4>File Upload Errors:</h4>
+                    <div class="curl-command">
+# File too large
+{
+  "message": "File too large",
+  "error": "Maximum file size is 5MB for images, 50MB for other files"
+}
+
+# Invalid file type
+{
+  "message": "Invalid file type. Allowed: JPEG, PNG, GIF, WebP"
+}
+
+# Missing file
+{
+  "message": "No image file provided"
+}
+                    </div>
+
+                    <h4>Authentication Errors:</h4>
+                    <div class="curl-command">
+# Missing token
+{
+  "message": "Token missing"
+}
+
+# Invalid token
+{
+  "message": "Invalid or expired token"
+}
+
+# Insufficient permissions
+{
+  "message": "Admin access required"
+}
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <div class="alert alert-info">
+                    <h5>📞 Need Help?</h5>
+                    <ul class="mb-0">
+                        <li>Check the <strong>Health Endpoint</strong>: <code>GET /health</code></li>
+                        <li>View <strong>API Documentation</strong>: <code>GET /api-docs</code></li>
+                        <li>Monitor <strong>System Metrics</strong>: <code>GET /metrics</code> (admin only)</li>
+                        <li><strong>Base URL:</strong> <code>http://localhost:5000</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight current section in sidebar
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('text-primary', 'fw-bold');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-primary', 'fw-bold');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

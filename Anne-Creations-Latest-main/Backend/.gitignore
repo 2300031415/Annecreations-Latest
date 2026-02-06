@@ -1,0 +1,16 @@
+node_modules
+
+image
+uploads
+catalog
+
+opencart_api_new
+
+dist
+
+.env
+
+backups
+.vscode
+
+migrationLogs

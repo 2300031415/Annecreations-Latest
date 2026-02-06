@@ -1,0 +1,397 @@
+{
+  "info": {
+    "name": "OpenCart Full API Collection - Complete",
+    "_postman_id": "opencart-api-collection-complete-001",
+    "description": "Full OpenCart API Postman collection with token auto-set, complete routes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://your.custom.api.url/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "Customer Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/customers/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"customer@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const jsonData = pm.response.json();",
+                  "if (jsonData.accessToken) {",
+                  "  pm.collectionVariables.set(\"access_token\", jsonData.accessToken);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Customer Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/customers/profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers",
+                "profile"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Register Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/customers/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "customers",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstname\": \"John\",\n  \"lastname\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"telephone\": \"+1234567890\",\n  \"password\": \"password123\",\n  \"newsletter\": true,\n  \"agree\": true\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"model\": \"NEW-PHONE-2023\",\n  \"price\": 399.99,\n  \"quantity\": 100,\n  \"status\": true\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Get My Orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/orders/my-orders",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "orders",
+                "my-orders"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Addresses",
+      "item": [
+        {
+          "name": "Get All Addresses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/addresses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "addresses"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Address",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/addresses",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "addresses"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_id\": 123,\n  \"firstname\": \"John\",\n  \"lastname\": \"Doe\",\n  \"company\": \"Acme Corp\",\n  \"address_1\": \"123 Main St\",\n  \"address_2\": \"Apt 4B\",\n  \"city\": \"New York\",\n  \"postcode\": \"10001\",\n  \"country_id\": 1,\n  \"zone_id\": 32\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Countries",
+      "item": [
+        {
+          "name": "Get All Countries",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/countries",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "countries"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Country",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/countries",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "countries"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Country\",\n  \"iso_code_2\": \"NC\",\n  \"iso_code_3\": \"NCO\",\n  \"address_format\": \"{firstname} {lastname}\\\\n{address_1}\\\\n{city}, {zone} {postcode}\\\\n{country}\",\n  \"postcode_required\": true,\n  \"status\": true\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Zones",
+      "item": [
+        {
+          "name": "Get All Zones",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/zones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "zones"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Zone",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/zones",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "zones"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"country_id\": 1,\n  \"name\": \"New Zone\",\n  \"code\": \"NZ\",\n  \"status\": true\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Coupons",
+      "item": [
+        {
+          "name": "Get All Coupons",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/coupons",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Coupon",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/coupons",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "coupons"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Summer Sale\",\n  \"code\": \"SUMMER20\",\n  \"type\": \"P\",\n  \"discount\": 20,\n  \"total\": 0,\n  \"date_start\": \"2024-06-01T00:00:00.000Z\",\n  \"date_end\": \"2024-08-31T23:59:59.000Z\",\n  \"uses_total\": 100,\n  \"uses_customer\": 1,\n  \"status\": true\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
